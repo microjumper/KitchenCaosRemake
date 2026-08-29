@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class TargetSelector : MonoBehaviour
 {
-    [SerializeField] private TargetRaycaster targetCaster;
+    [SerializeField] private TargetDetector targetDetector;
 
     private ISelectable currentSelectable;
 
     private void Awake()
     {
-        if (targetCaster != null)
+        if (targetDetector != null)
         {
-            targetCaster.OnTargetChange += OnTargetSelection;
+            targetDetector.OnTargetChange += OnTargetSelection;
         }
     }
 
     private void OnDestroy()
     {
-        if (targetCaster != null)
+        if (targetDetector != null)
         {
-            targetCaster.OnTargetChange -= OnTargetSelection;
+            targetDetector.OnTargetChange -= OnTargetSelection;
         }
     }
 

@@ -2,23 +2,23 @@ using UnityEngine;
 
 public class TargetInteractor : MonoBehaviour
 {
-    [SerializeField] private TargetRaycaster targetCaster;
+    [SerializeField] private TargetDetector targetDetector;
 
     private IInteractable currentInteractable;
 
     private void Awake()
     {
-        if (targetCaster != null)
+        if (targetDetector != null)
         {
-            targetCaster.OnTargetChange += OnTargetInteraction;
+            targetDetector.OnTargetChange += OnTargetInteraction;
         }
     }
 
     private void OnDestroy()
     {
-        if (targetCaster != null)
+        if (targetDetector != null)
         {
-            targetCaster.OnTargetChange -= OnTargetInteraction;
+            targetDetector.OnTargetChange -= OnTargetInteraction;
         }
     }
 

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class TargetRaycaster : MonoBehaviour
+public class TargetDetector : MonoBehaviour
 {
     public Action<GameObject> OnTargetChange;
 

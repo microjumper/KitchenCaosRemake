@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 397859719}
   - component: {fileID: 397859720}
   m_Layer: 0
-  m_Name: Caster
+  m_Name: Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b97dfff8e281024eb82404e187942c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetSelector
-  targetCaster: {fileID: 397859720}
+  targetDetector: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64f14603ab062748926439bb0986ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetInteractor
-  targetCaster: {fileID: 397859720}
+  targetDetector: {fileID: 0}
 --- !u!1 &2006207277
 GameObject:
   m_ObjectHideFlags: 0
