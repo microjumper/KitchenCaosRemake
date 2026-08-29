@@ -8,7 +8,7 @@ public class TargetRaycaster : MonoBehaviour
     [SerializeField] private LayerMask targetableMask;
     [SerializeField] private float castDistance = 1.0f;
 
-    private GameObject currentTarget;
+    private GameObject currentTarget = null;
 
     private void FixedUpdate()
     {
