@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class SelectionHandler : MonoBehaviour, ISelectable
+public class SelectableCounter : MonoBehaviour, ISelectable
 {
     private static readonly int EmissionColorId = Shader.PropertyToID("_EmissionColor");
 
     [SerializeField] private Color emissionColor = new(0.25f, 0.25f, 0.25f);
 
-    private Renderer targetRenderer;
+    private MeshRenderer targetRenderer;
     private MaterialPropertyBlock propertyBlock;
 
     private void Awake()
     {
-        targetRenderer = GetComponentInChildren<Renderer>();
+        targetRenderer = GetComponentInChildren<MeshRenderer>();
         propertyBlock = new MaterialPropertyBlock();
     }
 

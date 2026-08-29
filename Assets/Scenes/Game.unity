@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b97dfff8e281024eb82404e187942c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetSelector
-  targetDetector: {fileID: 0}
+  targetDetector: {fileID: 397859720}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1039,7 +1039,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64f14603ab062748926439bb0986ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetInteractor
-  targetDetector: {fileID: 0}
+  targetDetector: {fileID: 397859720}
 --- !u!1 &2006207277
 GameObject:
   m_ObjectHideFlags: 0

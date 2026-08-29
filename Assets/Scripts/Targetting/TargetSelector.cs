@@ -30,7 +30,6 @@ public class TargetSelector : MonoBehaviour
             {
                 return;
             }
-
             currentSelectable?.Deselect();
             currentSelectable = selectable;
             currentSelectable?.Select();
