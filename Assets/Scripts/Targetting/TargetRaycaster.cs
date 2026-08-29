@@ -3,20 +3,29 @@ using UnityEngine;
 
 public class TargetRaycaster : MonoBehaviour
 {
-    public Action<RaycastHit?> OnTargetFound;
+    public Action<GameObject> OnTargetChange;
 
     [SerializeField] private LayerMask targetableMask;
     [SerializeField] private float castDistance = 1.0f;
 
+    private GameObject currentTarget;
+
     private void FixedUpdate()
     {
+        GameObject target = null;
+        
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, castDistance, targetableMask))
         {
-            OnTargetFound?.Invoke(hit);
+            target = hit.collider.gameObject;
         }
-        else
+
+        if (target == currentTarget)
         {
-            OnTargetFound?.Invoke(null);
+            return;
         }
+
+        currentTarget = target; 
+        
+        OnTargetChange?.Invoke(currentTarget);
     }
 }

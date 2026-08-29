@@ -10,7 +10,7 @@ public class TargetSelector : MonoBehaviour
     {
         if (targetCaster != null)
         {
-            targetCaster.OnTargetFound += OnTargetSelection;
+            targetCaster.OnTargetChange += OnTargetSelection;
         }
     }
 
@@ -18,22 +18,22 @@ public class TargetSelector : MonoBehaviour
     {
         if (targetCaster != null)
         {
-            targetCaster.OnTargetFound -= OnTargetSelection;
+            targetCaster.OnTargetChange -= OnTargetSelection;
         }
     }
 
-    private void OnTargetSelection(RaycastHit? hit)
+    private void OnTargetSelection(GameObject target)
     {
-        if (hit.HasValue && hit.Value.collider.TryGetComponent<ISelectable>(out var selectable))
+        if (target != null && target.TryGetComponent<ISelectable>(out var selectable))
         {
-            if (currentSelectable != null && currentSelectable != selectable)
+            if (currentSelectable == selectable)
             {
-                currentSelectable.Deselect();
+                return;
             }
 
+            currentSelectable?.Deselect();
             currentSelectable = selectable;
-
-            currentSelectable.Select();
+            currentSelectable?.Select();
         }
         else
         {

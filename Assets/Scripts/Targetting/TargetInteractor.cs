@@ -10,7 +10,7 @@ public class TargetInteractor : MonoBehaviour
     {
         if (targetCaster != null)
         {
-            targetCaster.OnTargetFound += OnTargetInteraction;
+            targetCaster.OnTargetChange += OnTargetInteraction;
         }
     }
 
@@ -18,13 +18,13 @@ public class TargetInteractor : MonoBehaviour
     {
         if (targetCaster != null)
         {
-            targetCaster.OnTargetFound -= OnTargetInteraction;
+            targetCaster.OnTargetChange -= OnTargetInteraction;
         }
     }
 
-    private void OnTargetInteraction(RaycastHit? hit)
+    private void OnTargetInteraction(GameObject target)
     {
-        if (hit.HasValue && hit.Value.collider.TryGetComponent<IInteractable>(out var interactable))
+        if (target != null && target.TryGetComponent<IInteractable>(out var interactable))
         {
             currentInteractable = interactable;
         }
