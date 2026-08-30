@@ -3,23 +3,32 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rigidbody;
-    private IInputProvider inputProvider;
-    private PlayerAnimator playerAnimator;
+    [SerializeField] private PlayerAnimator playerAnimator;
+    [SerializeField] private PlayerInputProvider inputProvider;
+    [SerializeField] private TargetInteractor interactor;
 
     [SerializeField] private float moveSpeed = 5f;
 
+    private Rigidbody rigidbody;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        inputProvider = GetComponentInChildren<IInputProvider>();
-        playerAnimator = GetComponentInChildren<PlayerAnimator>();
+    }
+
+    private void OnEnable()
+    {
+        inputProvider.OnInteractPressed += HandleInteraction;
     }
 
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void OnDisable()
+    {
+        inputProvider.OnInteractPressed -= HandleInteraction;
     }
 
     private void Move()
@@ -35,5 +44,10 @@ public class PlayerController : MonoBehaviour
         rigidbody.MovePosition(destination);
 
         playerAnimator.SetWalking(direction);
+    }
+
+    private void HandleInteraction()
+    {
+        interactor.Interact();
     }
 }

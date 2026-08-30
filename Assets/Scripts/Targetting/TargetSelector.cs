@@ -6,7 +6,7 @@ public class TargetSelector : MonoBehaviour
 
     private ISelectable currentSelectable;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (targetDetector != null)
         {
@@ -14,7 +14,7 @@ public class TargetSelector : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (targetDetector != null)
         {

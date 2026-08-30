@@ -6,7 +6,7 @@ public class TargetInteractor : MonoBehaviour
 
     private IInteractable currentInteractable;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (targetDetector != null)
         {
@@ -14,7 +14,7 @@ public class TargetInteractor : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if (targetDetector != null)
         {
@@ -31,6 +31,14 @@ public class TargetInteractor : MonoBehaviour
         else
         {
             currentInteractable = null;
+        }
+    }
+
+    public void Interact()
+    {
+        if (currentInteractable != null && currentInteractable.CanInteract())
+        {
+            currentInteractable.Interact();
         }
     }
 }
