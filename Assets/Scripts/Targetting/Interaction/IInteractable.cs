@@ -1,5 +1,4 @@
 ﻿public interface IInteractable
 {
-    bool CanInteract();
-    void Interact();
+    bool TryInteractWith(IContainer container);
 }

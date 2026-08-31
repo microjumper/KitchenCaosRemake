@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimator : MonoBehaviour
 {
-    public static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking");
 
     private Animator animator;
 

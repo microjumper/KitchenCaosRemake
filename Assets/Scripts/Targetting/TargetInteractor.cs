@@ -1,10 +1,18 @@
 using UnityEngine;
 
+[RequireComponent(typeof(IContainer))]
 public class TargetInteractor : MonoBehaviour
 {
     [SerializeField] private TargetDetector targetDetector;
+    
+    private IContainer playerContainer;
 
     private IInteractable currentInteractable;
+
+    private void Awake()
+    {
+        playerContainer = GetComponent<IContainer>();
+    }
 
     private void OnEnable()
     {
@@ -36,9 +44,6 @@ public class TargetInteractor : MonoBehaviour
 
     public void Interact()
     {
-        if (currentInteractable != null && currentInteractable.CanInteract())
-        {
-            currentInteractable.Interact();
-        }
+        currentInteractable?.TryInteractWith(playerContainer);
     }
 }

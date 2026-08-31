@@ -5,27 +5,26 @@ public class SelectableCounter : MonoBehaviour, ISelectable
     private static readonly int EmissionColorId = Shader.PropertyToID("_EmissionColor");
 
     [SerializeField] private Color emissionColor = new(0.25f, 0.25f, 0.25f);
+    [SerializeField] private MeshRenderer[] renderers;
 
-    private MeshRenderer targetRenderer;
     private MaterialPropertyBlock propertyBlock;
 
     private void Awake()
     {
-        targetRenderer = GetComponentInChildren<MeshRenderer>();
         propertyBlock = new MaterialPropertyBlock();
     }
 
-    public void Select()
-    {
-        targetRenderer.GetPropertyBlock(propertyBlock);
-        propertyBlock.SetColor(EmissionColorId, emissionColor);
-        targetRenderer.SetPropertyBlock(propertyBlock);
-    }
+    public void Select() => SetEmission(emissionColor);
 
-    public void Deselect()
+    public void Deselect() => SetEmission(Color.black);
+
+    private void SetEmission(Color color)
     {
-        targetRenderer.GetPropertyBlock(propertyBlock);
-        propertyBlock.SetColor(EmissionColorId, Color.black);
-        targetRenderer.SetPropertyBlock(propertyBlock);
+        foreach (var renderer in renderers)
+        {
+            renderer.GetPropertyBlock(propertyBlock);
+            propertyBlock.SetColor(EmissionColorId, color);
+            renderer.SetPropertyBlock(propertyBlock);
+        }
     }
 }
