@@ -4,9 +4,9 @@ public class SupplyStation : MonoBehaviour, IInteractable
 {
     private static readonly int OpenClose = Animator.StringToHash("OpenClose");
 
+    [SerializeField] private KitchenItemDefinition supply;
     [SerializeField] private Animator animator;
     [SerializeField] private SpriteRenderer doorRender;
-    [SerializeField] KitchenItemDefinition supply;
 
     private void Start()
     {
@@ -19,9 +19,9 @@ public class SupplyStation : MonoBehaviour, IInteractable
         {
             animator.SetTrigger(OpenClose);
 
-            GameObject item = Instantiate(supply.Visual);
+            var item = KitchenItemFactory.CreateFrom(supply);
 
-            return container.TryAdd(item);
+            return container.TryAdd(item.gameObject);
         }
 
         return false;

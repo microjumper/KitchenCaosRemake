@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Definition", menuName = "ScriptableObjects/KitchenItemDefinition")]
+[CreateAssetMenu(fileName = "KitchenItemDefinition", menuName = "ScriptableObjects/KitchenItemDefinition")]
 public class KitchenItemDefinition : ScriptableObject
 {
     [SerializeField] private GameObject visual;

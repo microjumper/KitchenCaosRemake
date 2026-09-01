@@ -2,11 +2,11 @@
 
 public sealed class SingleSlotContainer : MonoBehaviour, IContainer
 {
-    public Transform Anchor => anchor;
-
     [SerializeField] private Transform anchor;
 
-    private GameObject heldItem;
+    private GameObject heldItem = null;
+
+    public GameObject Peek() => heldItem;
 
     // Try-pattern: atomically check and add, avoiding a TOCTOU race between Check() and Add().
     public bool TryAdd(GameObject item)
