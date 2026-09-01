@@ -4,10 +4,10 @@ using UnityEngine;
 public class TargetInteractor : MonoBehaviour
 {
     [SerializeField] private TargetDetector targetDetector;
-    
+
     private IContainer playerContainer;
 
-    private IInteractable currentInteractable;
+    private GameObject currentTarget;
 
     private void Awake()
     {
@@ -32,18 +32,22 @@ public class TargetInteractor : MonoBehaviour
 
     private void OnTargetInteraction(GameObject target)
     {
-        if (target != null && target.TryGetComponent<IInteractable>(out var interactable))
-        {
-            currentInteractable = interactable;
-        }
-        else
-        {
-            currentInteractable = null;
-        }
+        currentTarget = target;
     }
 
     public void Interact()
     {
-        currentInteractable?.TryInteractWith(playerContainer);
+        if (currentTarget != null && currentTarget.TryGetComponent<IInteractable>(out var interactable))
+        {
+            interactable.TryInteractWith(playerContainer);
+        }
+    }
+
+    public void InteractAlternate()
+    {
+        if (currentTarget != null && currentTarget.TryGetComponent<IInteractableAlternate>(out var interactableAlternate))
+        {
+            interactableAlternate.TryInteractAlternateWith(playerContainer);
+        }
     }
 }

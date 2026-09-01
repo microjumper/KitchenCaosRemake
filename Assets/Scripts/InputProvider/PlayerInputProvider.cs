@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerInputProvider : MonoBehaviour, IInputProvider
 {
     public Vector2 MoveInput { get; private set;  } = Vector2.zero;
-    public event Action OnInteractPressed;
+    public event Action InteractPressed;
+    public event Action InteractAlternatePressed;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -24,7 +25,15 @@ public class PlayerInputProvider : MonoBehaviour, IInputProvider
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            OnInteractPressed?.Invoke();
+            InteractPressed?.Invoke();
+        }
+    }
+
+    public void OnInteractAlternate(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            InteractAlternatePressed?.Invoke();
         }
     }
 }

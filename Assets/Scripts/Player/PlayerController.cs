@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        inputProvider.OnInteractPressed += HandleInteraction;
+        inputProvider.InteractPressed += HandleInteraction;
+        inputProvider.InteractAlternatePressed += HandleInteractionAlternate;
     }
 
     private void FixedUpdate()
@@ -28,7 +29,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        inputProvider.OnInteractPressed -= HandleInteraction;
+        inputProvider.InteractPressed -= HandleInteraction;
+        inputProvider.InteractAlternatePressed -= HandleInteractionAlternate;
     }
 
     private void Move()
@@ -46,8 +48,7 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetWalking(direction);
     }
 
-    private void HandleInteraction()
-    {
-        interactor.Interact();
-    }
+    private void HandleInteraction() => interactor.Interact();
+
+    private void HandleInteractionAlternate() => interactor.InteractAlternate();
 }

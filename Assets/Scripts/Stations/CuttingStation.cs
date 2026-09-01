@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(IContainer))]
-public class CuttingStation : MonoBehaviour, IInteractable
+public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlternate
 {
     private static readonly int Cut = Animator.StringToHash("Cut");
 
@@ -45,8 +45,15 @@ public class CuttingStation : MonoBehaviour, IInteractable
         return false;
     }
 
-    public void Slice()
+    public bool TryInteractAlternateWith(IContainer container)
     {
+        if (stationContainer.IsEmpty)
+        {
+            return false;
+        }
+
         animator.SetTrigger(Cut);
+
+        return true;
     }
 }
