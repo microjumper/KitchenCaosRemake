@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(IContainer))]
@@ -7,9 +8,12 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
 
     [SerializeField] private SlicebleRecipeRepository repository;
     [SerializeField] private Animator animator;
+    [SerializeField] private ProgressBar progressBar;
 
     private IContainer stationContainer;
     private CuttingProcess cuttingProcess = null;
+
+    public float Progress => throw new NotImplementedException();
 
     private void Awake()
     {
@@ -78,7 +82,9 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
 
         if (transferred)
         {
+            cuttingProcess.CutProgressChanged -= HandleCutProgressChanged;
             cuttingProcess = null;
+            progressBar.gameObject.SetActive(false);
         }
 
         return transferred;
@@ -102,6 +108,8 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
                 if (transferred)
                 {
                     cuttingProcess = new(recipe);
+                    cuttingProcess.CutProgressChanged += HandleCutProgressChanged;
+                    progressBar.gameObject.SetActive(true);
                 }
 
                 return transferred;
@@ -110,4 +118,6 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
 
         return false;
     }
+
+    private void HandleCutProgressChanged(float progress) => progressBar.SetProgress(progress);
 }

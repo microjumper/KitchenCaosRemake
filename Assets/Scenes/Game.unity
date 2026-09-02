@@ -1757,6 +1757,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CuttingStation
       objectReference: {fileID: 0}
+    - target: {fileID: 6896713345115635217, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064275447142827324, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8534783271813819224, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
