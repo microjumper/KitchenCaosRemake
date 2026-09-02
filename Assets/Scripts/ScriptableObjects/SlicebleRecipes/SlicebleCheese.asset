@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlicebleItemDefinition
   input: {fileID: 11400000, guid: 9abad6ef6ec8ae648a911208019aba2f, type: 2}
   output: {fileID: 11400000, guid: 6343d31d8b636a84ca8d12a32257f67c, type: 2}
-  cutsRequired: 5
+  cutsRequired: 3

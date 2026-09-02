@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SlicebleItemRepository
   slicebleItems:
   - {fileID: 11400000, guid: 54455e6169fd2954d92e112e9493bff8, type: 2}
+  - {fileID: 11400000, guid: c7aea507448fcaf4fbef93d516ecea3e, type: 2}
+  - {fileID: 11400000, guid: d7f296fcd8708044cb87b9e823d3217d, type: 2}
