@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfba21abe62efc548ba4dc7bb99d323d, type: 3}
-  m_Name: SlicingRecipeRepository
+  m_Name: SlicebleRecipeRepository
   m_EditorClassIdentifier: Assembly-CSharp::SlicebleItemRepository
   slicebleItems:
   - {fileID: 11400000, guid: 54455e6169fd2954d92e112e9493bff8, type: 2}

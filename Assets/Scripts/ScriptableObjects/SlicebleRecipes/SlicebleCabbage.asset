@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd465b15f079e148bf1067b4067e2be, type: 3}
+  m_Name: SlicebleCabbage
+  m_EditorClassIdentifier: Assembly-CSharp::SlicebleItemDefinition
+  input: {fileID: 11400000, guid: fdec7c5c5a19d9942a054be0877b3dca, type: 2}
+  output: {fileID: 11400000, guid: e77182701bb7ac145b9210b364489a60, type: 2}
+  cutsRequired: 5
