@@ -14,7 +14,7 @@ public sealed class SingleSlotContainer : MonoBehaviour, IContainer
         if (IsEmpty)
         {
             heldItem = item;
-            heldItem.transform.SetPositionAndRotation(anchor.position, anchor.rotation);
+            heldItem.transform.SetPositionAndRotation(anchor.position, item.transform.rotation);
             heldItem.transform.SetParent(anchor);
             
             return true;

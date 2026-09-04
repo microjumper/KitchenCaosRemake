@@ -13,8 +13,6 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
     private IContainer stationContainer;
     private CuttingProcess cuttingProcess = null;
 
-    public float Progress => throw new NotImplementedException();
-
     private void Awake()
     {
         stationContainer = GetComponent<IContainer>();

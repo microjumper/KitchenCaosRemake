@@ -902,6 +902,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8968976604477460897, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: repository
+      value: 
+      objectReference: {fileID: 11400000, guid: 1370e630a9d8f0041bfe281d59eb0741, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2086,6 +2090,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8968976604477460897, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: repository
+      value: 
+      objectReference: {fileID: 11400000, guid: 1370e630a9d8f0041bfe281d59eb0741, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2253,6 +2261,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5776826262588407675, guid: ebcb0ba8a1ec3c948aab5e4c769318a7, type: 3}
+      propertyPath: repository
+      value: 
+      objectReference: {fileID: 11400000, guid: ff6b859d73623494e869c46632e81614, type: 2}
     - target: {fileID: 8020672612342144645, guid: ebcb0ba8a1ec3c948aab5e4c769318a7, type: 3}
       propertyPath: m_Name
       value: StoveStation
