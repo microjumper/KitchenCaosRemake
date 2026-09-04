@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(IContainer))]
@@ -76,7 +75,7 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
 
     private bool TryTransferItemTo(IContainer otherContainer)
     {
-        var transferred = StationTransferer.TryTransfer(stationContainer, otherContainer);
+        var transferred = StationTransfer.TryTransfer(stationContainer, otherContainer);
 
         if (transferred)
         {
@@ -101,7 +100,7 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
         {
             if (repository.TryGet(kitchenItem.Definition, out var recipe))
             {
-                var transferred = StationTransferer.TryTransfer(otherContainer, stationContainer);
+                var transferred = StationTransfer.TryTransfer(otherContainer, stationContainer);
 
                 if (transferred)
                 {

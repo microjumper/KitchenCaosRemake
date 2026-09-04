@@ -16,7 +16,7 @@ public class StoveStation : MonoBehaviour, IInteractable
     {
         if (otherContainer.IsEmpty)
         {
-            return StationTransferer.TryTransfer(stationContainer, otherContainer);
+            return StationTransfer.TryTransfer(stationContainer, otherContainer);
         }
 
         if (!stationContainer.IsEmpty)
@@ -41,7 +41,7 @@ public class StoveStation : MonoBehaviour, IInteractable
         {
             if (repository.TryGet(kitchenItem.Definition, out var recipe))
             {
-                var transferred = StationTransferer.TryTransfer(otherContainer, stationContainer);
+                var transferred = StationTransfer.TryTransfer(otherContainer, stationContainer);
 
                 if (transferred)
                 {

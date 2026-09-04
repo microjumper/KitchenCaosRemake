@@ -14,12 +14,12 @@ public class ClearStation : MonoBehaviour, IInteractable
     {
         if (otherContainer.IsEmpty)
         {
-            return StationTransferer.TryTransfer(stationContainer, otherContainer);
+            return StationTransfer.TryTransfer(stationContainer, otherContainer);
         }
 
         if (stationContainer.IsEmpty)
         {
-            return StationTransferer.TryTransfer(otherContainer, stationContainer);
+            return StationTransfer.TryTransfer(otherContainer, stationContainer);
         }
 
         return false;
