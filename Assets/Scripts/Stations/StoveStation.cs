@@ -1,57 +1,78 @@
 using UnityEngine;
 
-[RequireComponent(typeof(IContainer))]
-public class StoveStation : MonoBehaviour, IInteractable
+public class StoveStation : ProcessingStation
 {
     [SerializeField] private CookableRecipeRepository repository;
 
-    private IContainer stationContainer;
+    protected override bool IsProcessing => cookingProcess != null && !cookingProcess.IsComplete;
 
-    private void Awake()
+    private CookingProcess cookingProcess = null;
+
+    protected override bool TryStartProcessing(KitchenItemDefinition startingItemDefinition)
     {
-        stationContainer = GetComponent<IContainer>();
-    }
-
-    public bool TryInteractWith(IContainer otherContainer)
-    {
-        if (otherContainer.IsEmpty)
-        {
-            return StationTransfer.TryTransfer(stationContainer, otherContainer);
-        }
-
-        if (!stationContainer.IsEmpty)
-        {
-            Debug.Log("Station container is not empty. Cannot transfer items.");
-            return false;
-        }
-
-        return TryTransferItemFrom(otherContainer);
-    }
-
-    private bool TryTransferItemFrom(IContainer otherContainer)
-    {
-        var heldObject = otherContainer.Peek();
-
-        if (heldObject == null)
+        if (!repository.TryGet(startingItemDefinition, out var recipe))
         {
             return false;
         }
 
-        if (heldObject.TryGetComponent(out KitchenItem kitchenItem))
+        cookingProcess = new CookingProcess(recipe);
+        cookingProcess.ItemCooked += OnItemCooked;
+        cookingProcess.ItemBurned += OnItemBurned;
+
+        return true;
+    }
+
+    protected override bool TryTransferProcessedItemTo(IContainer otherContainer)
+    {
+        var transferred = base.TryTransferProcessedItemTo(otherContainer);
+
+        if (transferred)
         {
-            if (repository.TryGet(kitchenItem.Definition, out var recipe))
+            if (cookingProcess != null)
             {
-                var transferred = StationTransfer.TryTransfer(otherContainer, stationContainer);
-
-                if (transferred)
-                {
-                    // TODO Handle cooking logic
-                }
-
-                return transferred;
+                cookingProcess.ItemCooked -= OnItemCooked;
+                cookingProcess.ItemBurned -= OnItemBurned;
+                cookingProcess = null;
             }
         }
 
-        return false;
+        return transferred;
+    }
+
+    private void Update()
+    {
+        if (cookingProcess == null)
+        {
+            return;
+        }
+
+        cookingProcess.AdvanceTime(Time.deltaTime);
+    }
+
+    private void OnItemCooked()
+    {
+        ReplaceWith(cookingProcess.Cooked);
+
+        cookingProcess.ItemCooked -= OnItemCooked;
+    }
+
+    private void OnItemBurned()
+    {
+        ReplaceWith(cookingProcess.Burned);
+
+        cookingProcess.ItemBurned -= OnItemBurned;
+        cookingProcess = null;
+    }
+
+    private void ReplaceWith(KitchenItemDefinition itemDefinition)
+    {
+        if (StationContainer.TryRemove(out var item))
+        {
+            Destroy(item);
+
+            var processed = KitchenItemFactory.CreateFrom(itemDefinition);
+
+            StationContainer.TryAdd(processed.gameObject);
+        }
     }
 }

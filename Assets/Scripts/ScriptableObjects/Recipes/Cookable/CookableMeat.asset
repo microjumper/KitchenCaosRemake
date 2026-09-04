@@ -16,4 +16,4 @@ MonoBehaviour:
   cooked: {fileID: 11400000, guid: 3580f4af06fdfcd4e8136b83f6237a5c, type: 2}
   burned: {fileID: 11400000, guid: 0098fa697ab72e643b167e633e565e50, type: 2}
   cookingTime: 3
-  overtime: 1
+  overtime: 3

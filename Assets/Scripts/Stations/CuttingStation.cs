@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(IContainer))]
-public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlternate
+public sealed class CuttingStation : ProcessingStation, IInteractableAlternate
 {
     private static readonly int Cut = Animator.StringToHash("Cut");
 
@@ -9,39 +8,53 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
     [SerializeField] private Animator animator;
     [SerializeField] private ProgressBar progressBar;
 
-    private IContainer stationContainer;
     private CuttingProcess cuttingProcess = null;
 
-    private void Awake()
-    {
-        stationContainer = GetComponent<IContainer>();
-    }
+    protected override bool IsProcessing => cuttingProcess != null && cuttingProcess.IsInProgress;
 
-    public bool TryInteractWith(IContainer otherContainer)
+    protected override bool TryStartProcessing(KitchenItemDefinition startingItemDefinition)
     {
-        if (IsCuttingInProgress())
+        if (!repository.TryGet(startingItemDefinition, out var recipe))
         {
-            Debug.Log("Cutting in progress. Cannot transfer items.");
             return false;
         }
 
-        if (otherContainer.IsEmpty)
-        {
-            return TryTransferItemTo(otherContainer);
-        }
+        cuttingProcess = new CuttingProcess(recipe);
+        cuttingProcess.CutProgressChanged += HandleCutProgressChanged;
 
-        if (!stationContainer.IsEmpty)
-        {
-            Debug.Log("Station container is not empty. Cannot transfer items.");
-            return false;
-        }
+        progressBar.gameObject.SetActive(true);
 
-        return TryTransferItemFrom(otherContainer);
+        return true;
     }
+
+    protected override bool TryTransferProcessedItemTo(IContainer otherContainer)
+    {
+        var transferred = base.TryTransferProcessedItemTo(otherContainer);
+
+        if (transferred)
+        {
+            ResetCuttingProcess();
+        }
+
+        return transferred;
+    }
+
+    private void ResetCuttingProcess()
+    {
+        if (cuttingProcess != null)
+        {
+            cuttingProcess.CutProgressChanged -= HandleCutProgressChanged;
+            cuttingProcess = null;
+        }
+
+        progressBar.gameObject.SetActive(false);
+    }
+
+    private void HandleCutProgressChanged(float progress) => progressBar.SetProgress(progress);
 
     public bool TryInteractAlternateWith(IContainer container)
     {
-        if (stationContainer.IsEmpty)
+        if (StationContainer.IsEmpty || cuttingProcess == null)
         {
             return false;
         }
@@ -52,69 +65,26 @@ public class CuttingStation : MonoBehaviour, IInteractable, IInteractableAlterna
             animator.SetTrigger(Cut);
         }
 
-        if (cuttingProcess.IsComplete)
+        if (!cuttingProcess.IsComplete)
         {
-            if (stationContainer.TryRemove(out var whole))
-            {
-                Destroy(whole);
+            return true;
+        }
 
-                var sliced = KitchenItemFactory.CreateFrom(cuttingProcess.Output);
+        if (!StationContainer.TryRemove(out var whole))
+        {
+            return false;
+        }
 
-                stationContainer.TryAdd(sliced.gameObject);
+        Destroy(whole);
 
-                return true;
-            }
+        var sliced = KitchenItemFactory.CreateFrom(cuttingProcess.Output);
 
+        if (!StationContainer.TryAdd(sliced.gameObject))
+        {
+            Destroy(sliced.gameObject);
             return false;
         }
 
         return true;
     }
-
-    private bool IsCuttingInProgress() => cuttingProcess != null && cuttingProcess.IsInProgress;
-
-    private bool TryTransferItemTo(IContainer otherContainer)
-    {
-        var transferred = StationTransfer.TryTransfer(stationContainer, otherContainer);
-
-        if (transferred)
-        {
-            cuttingProcess.CutProgressChanged -= HandleCutProgressChanged;
-            cuttingProcess = null;
-            progressBar.gameObject.SetActive(false);
-        }
-
-        return transferred;
-    }
-
-    private bool TryTransferItemFrom(IContainer otherContainer)
-    {
-        var heldObject = otherContainer.Peek();
-
-        if (heldObject == null)
-        {
-            return false;
-        }
-
-        if (heldObject.TryGetComponent(out KitchenItem kitchenItem))
-        {
-            if (repository.TryGet(kitchenItem.Definition, out var recipe))
-            {
-                var transferred = StationTransfer.TryTransfer(otherContainer, stationContainer);
-
-                if (transferred)
-                {
-                    cuttingProcess = new(recipe);
-                    cuttingProcess.CutProgressChanged += HandleCutProgressChanged;
-                    progressBar.gameObject.SetActive(true);
-                }
-
-                return transferred;
-            }
-        }
-
-        return false;
-    }
-
-    private void HandleCutProgressChanged(float progress) => progressBar.SetProgress(progress);
 }
