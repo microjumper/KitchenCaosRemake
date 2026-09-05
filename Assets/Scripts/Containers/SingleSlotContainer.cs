@@ -41,4 +41,5 @@ public sealed class SingleSlotContainer : MonoBehaviour, IContainer
     }
 
     public bool IsEmpty => heldItem == null;
+    public int Count => IsEmpty ? 0 : 1;
 }
