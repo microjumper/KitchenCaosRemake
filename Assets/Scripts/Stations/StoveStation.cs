@@ -3,6 +3,7 @@ using UnityEngine;
 public class StoveStation : ProcessingStation
 {
     [SerializeField] private CookableRecipeRepository repository;
+    [SerializeField] private GameObject stoveOnEffects;
 
     protected override bool IsProcessing => cookingProcess != null && !cookingProcess.IsComplete;
 
@@ -19,6 +20,8 @@ public class StoveStation : ProcessingStation
         cookingProcess.ItemCooked += OnItemCooked;
         cookingProcess.ItemBurned += OnItemBurned;
 
+        stoveOnEffects.SetActive(true);
+
         return true;
     }
 
@@ -33,6 +36,8 @@ public class StoveStation : ProcessingStation
                 cookingProcess.ItemCooked -= OnItemCooked;
                 cookingProcess.ItemBurned -= OnItemBurned;
                 cookingProcess = null;
+
+                stoveOnEffects.SetActive(false);
             }
         }
 
@@ -62,6 +67,8 @@ public class StoveStation : ProcessingStation
 
         cookingProcess.ItemBurned -= OnItemBurned;
         cookingProcess = null;
+
+        stoveOnEffects.SetActive(false);
     }
 
     private void ReplaceWith(KitchenItemDefinition itemDefinition)

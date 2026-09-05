@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5d4de5c6ad4c844ea2e65bc9b2b6111, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoveStation
+  repository: {fileID: 0}
+  stoveOnEffects: {fileID: 6931404020982795032}
 --- !u!1001 &1221980445120941645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -139,6 +141,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1961486773957737115}
     m_Modifications:
+    - target: {fileID: 17251720544094567, guid: 93af8b85a17635f40a5b76ed82a86c18, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 496015676961670754, guid: 93af8b85a17635f40a5b76ed82a86c18, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -191,6 +197,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5220305274835918574, guid: 93af8b85a17635f40a5b76ed82a86c18, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8125641094744278357, guid: 93af8b85a17635f40a5b76ed82a86c18, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -209,6 +223,11 @@ MeshRenderer:
 --- !u!4 &3406036034700782310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4589716710238282923, guid: 93af8b85a17635f40a5b76ed82a86c18, type: 3}
+  m_PrefabInstance: {fileID: 1221980445120941645}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6931404020982795032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8125641094744278357, guid: 93af8b85a17635f40a5b76ed82a86c18, type: 3}
   m_PrefabInstance: {fileID: 1221980445120941645}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &7778142018403849558 stripped
