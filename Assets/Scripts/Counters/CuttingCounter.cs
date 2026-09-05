@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public sealed class CuttingStation : ProcessingStation, IInteractableAlternate
+public sealed class CuttingCounter : ProcessingCounter, IInteractableAlternate
 {
     private static readonly int Cut = Animator.StringToHash("Cut");
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7498702533097981184}
   - component: {fileID: 6662118629076733843}
   m_Layer: 10
-  m_Name: SupplyStation
+  m_Name: SupplyCounter
   m_TagString: Counter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StoveStation : ProcessingStation
+public class StoveCounter : ProcessingCounter
 {
     [SerializeField] private CookableRecipeRepository repository;
     [SerializeField] private ProgressBar progressBar;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class StationTransfer
+public static class CounterTransfer
 {
     public static bool TryTransfer(IContainer source, IContainer destination)
     {

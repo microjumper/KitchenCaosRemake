@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(IContainer))]
-public class ClearStation : MonoBehaviour, IInteractable
+public class ClearCounter : MonoBehaviour, IInteractable
 {
     private IContainer stationContainer;
 
@@ -14,12 +14,12 @@ public class ClearStation : MonoBehaviour, IInteractable
     {
         if (otherContainer.IsEmpty)
         {
-            return StationTransfer.TryTransfer(stationContainer, otherContainer);
+            return CounterTransfer.TryTransfer(stationContainer, otherContainer);
         }
 
         if (stationContainer.IsEmpty)
         {
-            return StationTransfer.TryTransfer(otherContainer, stationContainer);
+            return CounterTransfer.TryTransfer(otherContainer, stationContainer);
         }
 
         return false;

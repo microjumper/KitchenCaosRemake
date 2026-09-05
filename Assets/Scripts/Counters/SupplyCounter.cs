@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SupplyStation : MonoBehaviour, IInteractable
+public class SupplyCounter : MonoBehaviour, IInteractable
 {
     private static readonly int OpenClose = Animator.StringToHash("OpenClose");
 

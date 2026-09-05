@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(IContainer))]
-public abstract class ProcessingStation : MonoBehaviour, IInteractable
+public abstract class ProcessingCounter : MonoBehaviour, IInteractable
 {
     protected IContainer StationContainer { get; private set; }
 
@@ -38,7 +38,7 @@ public abstract class ProcessingStation : MonoBehaviour, IInteractable
 
     protected virtual bool TryTransferProcessedItemTo(IContainer otherContainer)
     {
-        return StationTransfer.TryTransfer(StationContainer, otherContainer);
+        return CounterTransfer.TryTransfer(StationContainer, otherContainer);
     }
 
     private bool TryTransferStartingItemFrom(IContainer otherContainer)
@@ -55,7 +55,7 @@ public abstract class ProcessingStation : MonoBehaviour, IInteractable
             return false;
         }
 
-        return StationTransfer.TryTransfer(otherContainer, StationContainer);
+        return CounterTransfer.TryTransfer(otherContainer, StationContainer);
     }
 
     protected abstract bool TryStartProcessing(KitchenItemDefinition startingItemDefinition);
