@@ -3,6 +3,7 @@ using UnityEngine;
 public class StoveStation : ProcessingStation
 {
     [SerializeField] private CookableRecipeRepository repository;
+    [SerializeField] private ProgressBar progressBar;
     [SerializeField] private GameObject stoveOnEffects;
 
     protected override bool IsProcessing => cookingProcess != null && !cookingProcess.IsComplete;
@@ -16,11 +17,9 @@ public class StoveStation : ProcessingStation
             return false;
         }
 
-        cookingProcess = new CookingProcess(recipe);
-        cookingProcess.ItemCooked += OnItemCooked;
-        cookingProcess.ItemBurned += OnItemBurned;
+        StartCookingProcess(recipe);
 
-        stoveOnEffects.SetActive(true);
+        EnableVisual();
 
         return true;
     }
@@ -31,14 +30,9 @@ public class StoveStation : ProcessingStation
 
         if (transferred)
         {
-            if (cookingProcess != null)
-            {
-                cookingProcess.ItemCooked -= OnItemCooked;
-                cookingProcess.ItemBurned -= OnItemBurned;
-                cookingProcess = null;
+            ResetCookingProcess();
 
-                stoveOnEffects.SetActive(false);
-            }
+            DisableVisual();
         }
 
         return transferred;
@@ -59,16 +53,17 @@ public class StoveStation : ProcessingStation
         ReplaceWith(cookingProcess.Cooked);
 
         cookingProcess.ItemCooked -= OnItemCooked;
+
+        progressBar.UseSecondaryColor();
     }
 
     private void OnItemBurned()
     {
         ReplaceWith(cookingProcess.Burned);
 
-        cookingProcess.ItemBurned -= OnItemBurned;
-        cookingProcess = null;
+        ResetCookingProcess();
 
-        stoveOnEffects.SetActive(false);
+        DisableVisual();
     }
 
     private void ReplaceWith(KitchenItemDefinition itemDefinition)
@@ -82,4 +77,38 @@ public class StoveStation : ProcessingStation
             StationContainer.TryAdd(processed.gameObject);
         }
     }
+
+    private void StartCookingProcess(CookableItemDefinition recipe)
+    {
+        cookingProcess = new CookingProcess(recipe);
+        cookingProcess.ItemCooked += OnItemCooked;
+        cookingProcess.ItemBurned += OnItemBurned;
+
+        cookingProcess.CookingProgressChanged += HandleProgressChanged;
+    }
+
+    private void ResetCookingProcess()
+    {
+        if (cookingProcess != null)
+        {
+            cookingProcess.ItemCooked -= OnItemCooked;
+            cookingProcess.ItemBurned -= OnItemBurned;
+            cookingProcess.CookingProgressChanged -= HandleProgressChanged;
+            cookingProcess = null;
+        }
+    }
+
+    private void EnableVisual()
+    {
+        stoveOnEffects.SetActive(true);
+        progressBar.gameObject.SetActive(true);
+    }
+
+    private void DisableVisual()
+    {
+        stoveOnEffects.SetActive(false);
+        progressBar.gameObject.SetActive(false);
+    }
+
+    private void HandleProgressChanged(float progress) => progressBar.SetProgress(progress);
 }
