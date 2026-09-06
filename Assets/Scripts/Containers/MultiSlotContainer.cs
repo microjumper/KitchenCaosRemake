@@ -33,6 +33,7 @@ public sealed class MultiSlotContainer : MonoBehaviour, IContainer
         }
 
         item = heldItems.Pop();
+        item.transform.SetParent(null);
 
         return true;
     }
