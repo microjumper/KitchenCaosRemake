@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "SlicebleDefinition", menuName = "ScriptableObjects/SlicebleDefinition")]
-public class SlicebleItemDefinition : ScriptableObject
+public class SliceableItemDefinition : ScriptableObject
 {
     [SerializeField] private KitchenItemDefinition input;
     [SerializeField] private KitchenItemDefinition output;

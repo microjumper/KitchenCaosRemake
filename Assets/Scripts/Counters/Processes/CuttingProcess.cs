@@ -8,10 +8,10 @@ public sealed class CuttingProcess
     public bool IsInProgress => cutsCompleted > 0 && !IsComplete;
     public bool IsComplete => cutsCompleted >= recipe.CutsRequired;
 
-    private readonly SlicebleItemDefinition recipe;
+    private readonly SliceableItemDefinition recipe;
     private int cutsCompleted = 0;
 
-    public CuttingProcess(SlicebleItemDefinition recipe)
+    public CuttingProcess(SliceableItemDefinition recipe)
     {
         this.recipe = recipe;
     }
