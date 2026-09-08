@@ -54,7 +54,7 @@ public sealed class CuttingCounter : ProcessingCounter, IInteractableAlternate
 
     public bool TryInteractAlternateWith(IContainer container)
     {
-        if (StationContainer.IsEmpty || cuttingProcess == null)
+        if (!CounterContainer.HasItem || cuttingProcess == null)
         {
             return false;
         }
@@ -70,16 +70,16 @@ public sealed class CuttingCounter : ProcessingCounter, IInteractableAlternate
             return true;
         }
 
-        if (!StationContainer.TryRemove(out var whole))
+        if (!CounterContainer.TryRetrieve(out var whole))
         {
             return false;
         }
 
         Destroy(whole);
 
-        var sliced = KitchenItemFactory.CreateFrom(cuttingProcess.Output);
+        var sliced = KitchenItemFactory<KitchenItem>.CreateFrom(cuttingProcess.Output);
 
-        if (!StationContainer.TryAdd(sliced.gameObject))
+        if (!CounterContainer.TryStore(sliced))
         {
             Destroy(sliced.gameObject);
             return false;

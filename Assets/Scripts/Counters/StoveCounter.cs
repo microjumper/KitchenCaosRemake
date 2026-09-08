@@ -68,13 +68,13 @@ public class StoveCounter : ProcessingCounter
 
     private void ReplaceWith(KitchenItemDefinition itemDefinition)
     {
-        if (StationContainer.TryRemove(out var item))
+        if (CounterContainer.TryRetrieve(out var item))
         {
             Destroy(item);
 
-            var processed = KitchenItemFactory.CreateFrom(itemDefinition);
+            var processed = KitchenItemFactory<KitchenItem>.CreateFrom(itemDefinition);
 
-            StationContainer.TryAdd(processed.gameObject);
+            CounterContainer.TryStore(processed);
         }
     }
 

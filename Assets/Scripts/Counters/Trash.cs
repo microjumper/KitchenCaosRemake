@@ -4,15 +4,10 @@ public class Trash : MonoBehaviour, IInteractable
 {
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.IsEmpty)
+        if (otherContainer.TryRetrieve(out KitchenItem item))
         {
-            return false;
-        }
+            Destroy(item.gameObject);
 
-        if (otherContainer.TryRemove(out GameObject item))
-        {
-            Destroy(item);
-            
             return true;
         }
 

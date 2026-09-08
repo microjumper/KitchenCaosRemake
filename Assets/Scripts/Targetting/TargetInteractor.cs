@@ -18,7 +18,7 @@ public class TargetInteractor : MonoBehaviour
     {
         if (targetDetector != null)
         {
-            targetDetector.OnTargetChange += OnTargetInteraction;
+            targetDetector.TargetChanged += OnTargetInteraction;
         }
     }
 
@@ -26,7 +26,7 @@ public class TargetInteractor : MonoBehaviour
     {
         if (targetDetector != null)
         {
-            targetDetector.OnTargetChange -= OnTargetInteraction;
+            targetDetector.TargetChanged -= OnTargetInteraction;
         }
     }
 

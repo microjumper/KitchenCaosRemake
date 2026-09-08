@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1961486773957737115}
   - component: {fileID: 1080890702804353165}
   - component: {fileID: 5946104825718243964}
-  - component: {fileID: 4747129425473956054}
+  - component: {fileID: 3627691487010530222}
   - component: {fileID: 5776826262588407675}
   m_Layer: 10
   m_Name: StoveCounter
@@ -107,7 +107,7 @@ MonoBehaviour:
   - {fileID: 1591858764619384879}
   - {fileID: 1663869036644026142}
   - {fileID: 7778142018403849558}
---- !u!114 &4747129425473956054
+--- !u!114 &3627691487010530222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8020672612342144645}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bca03b3ab5fce7f4fbcfd46784bfa63f, type: 3}
+  m_Script: {fileID: 11500000, guid: f72a58899ae639249bfc0b0306162f17, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SingleSlotContainer
+  m_EditorClassIdentifier: Assembly-CSharp::Container
   anchor: {fileID: 5860358653701311124}
+  storePolicy: {fileID: 0}
 --- !u!114 &5776826262588407675
 MonoBehaviour:
   m_ObjectHideFlags: 0

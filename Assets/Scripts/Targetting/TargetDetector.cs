@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TargetDetector : MonoBehaviour
 {
-    public event Action<GameObject> OnTargetChange;
+    public event Action<GameObject> TargetChanged;
 
     [SerializeField] private LayerMask targetableMask;
     [SerializeField] private float castDistance = 1.0f;
@@ -26,6 +26,6 @@ public class TargetDetector : MonoBehaviour
 
         currentTarget = target; 
         
-        OnTargetChange?.Invoke(currentTarget);
+        TargetChanged?.Invoke(currentTarget);
     }
 }

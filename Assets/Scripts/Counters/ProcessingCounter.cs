@@ -3,11 +3,11 @@
 [RequireComponent(typeof(IContainer))]
 public abstract class ProcessingCounter : MonoBehaviour, IInteractable
 {
-    protected IContainer StationContainer { get; private set; }
+    protected IContainer CounterContainer { get; private set; }
 
     protected virtual void Awake()
     {
-        StationContainer = GetComponent<IContainer>();
+        CounterContainer = GetComponent<IContainer>();
     }
 
     public bool TryInteractWith(IContainer otherContainer)
@@ -19,14 +19,14 @@ public abstract class ProcessingCounter : MonoBehaviour, IInteractable
             return false;
         }
 
-        if (otherContainer.IsEmpty)
+        if (!otherContainer.HasItem)
         {
             return TryTransferProcessedItemTo(otherContainer);
         }
 
-        if (!StationContainer.IsEmpty)
+        if (CounterContainer.HasItem)
         {
-            Debug.Log("Station container is not empty. Cannot transfer items.");
+            Debug.Log("Counter container is not empty. Cannot transfer items.");
             
             return false;
         }
@@ -38,24 +38,20 @@ public abstract class ProcessingCounter : MonoBehaviour, IInteractable
 
     protected virtual bool TryTransferProcessedItemTo(IContainer otherContainer)
     {
-        return CounterTransfer.TryTransfer(StationContainer, otherContainer);
+        return ItemTransfer.TryTransfer(CounterContainer, otherContainer);
     }
 
     private bool TryTransferStartingItemFrom(IContainer otherContainer)
     {
-        var startingItem = otherContainer.Peek();
-
-        if (startingItem == null || !startingItem.TryGetComponent(out KitchenItem kitchenItem))
+        if (otherContainer.TryRetrieve(out KitchenItem kitchenItem))
         {
-            return false;
+            if (TryStartProcessing(kitchenItem.Definition))
+            {
+                return CounterContainer.TryStore(kitchenItem);
+            }
         }
 
-        if (!TryStartProcessing(kitchenItem.Definition))
-        {
-            return false;
-        }
-
-        return CounterTransfer.TryTransfer(otherContainer, StationContainer);
+        return false;
     }
 
     protected abstract bool TryStartProcessing(KitchenItemDefinition startingItemDefinition);

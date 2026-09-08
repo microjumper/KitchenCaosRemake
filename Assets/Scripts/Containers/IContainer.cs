@@ -1,10 +1,7 @@
-using UnityEngine;
-
-public interface IContainer
+﻿public interface IContainer
 {
-    bool IsEmpty { get; }
-    int Count { get; }
-    GameObject Peek();
-    bool TryAdd(GameObject item);
-    bool TryRemove(out GameObject item);
+    bool HasItem { get; }
+    bool CanStore(KitchenItem item);
+    bool TryStore(KitchenItem item);
+    bool TryRetrieve(out KitchenItem item);
 }

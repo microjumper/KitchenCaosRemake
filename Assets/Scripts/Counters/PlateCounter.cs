@@ -8,11 +8,13 @@ public class PlateCounter : MonoBehaviour, IInteractable
     [SerializeField] private int maxPlates = 5;
     [SerializeField] private float spawnInterval = 1.5f;
 
-    private IContainer stationContainer;
+    private IContainer counterContainer;
+
+    private int numberOfPlates = 0;
 
     private void Awake()
     {
-        stationContainer = GetComponent<IContainer>();
+        counterContainer = GetComponent<IContainer>();
     }
 
     private void Start()
@@ -22,23 +24,32 @@ public class PlateCounter : MonoBehaviour, IInteractable
 
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.IsEmpty)
+        if (otherContainer.HasItem)
         {
-            return CounterTransfer.TryTransfer(stationContainer, otherContainer);
+            return false;
         }
 
-        return false;
+        var transferred = ItemTransfer.TryTransfer(counterContainer, otherContainer);
+
+        if (transferred)
+        {
+            numberOfPlates--;
+        }
+
+        return transferred;
     }
 
     private IEnumerator SpawnPlates()
     {
         while (true)
         {
-            if (stationContainer.Count < maxPlates)
+            if (numberOfPlates < maxPlates)
             {
-                var plate = KitchenItemFactory.CreateFrom(plateDefinition);
+                var plate = KitchenItemFactory<Plate>.CreateFrom(plateDefinition);
 
-                stationContainer.TryAdd(plate.gameObject);
+                counterContainer.TryStore(plate);
+
+                numberOfPlates++;
             }
 
             yield return new WaitForSeconds(spawnInterval);

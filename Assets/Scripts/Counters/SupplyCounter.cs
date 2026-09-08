@@ -13,17 +13,17 @@ public class SupplyCounter : MonoBehaviour, IInteractable
         doorRender.sprite = supply.Sprite;
     }
 
-    public bool TryInteractWith(IContainer container)
+    public bool TryInteractWith(IContainer otherContainer)
     {
-        if (container.IsEmpty)
+        if (otherContainer.HasItem)
         {
-            animator.SetTrigger(OpenClose);
-
-            var item = KitchenItemFactory.CreateFrom(supply);
-
-            return container.TryAdd(item.gameObject);
+            return false;
         }
 
-        return false;
+        animator.SetTrigger(OpenClose);
+
+        var item = KitchenItemFactory<Ingredient>.CreateFrom(supply);
+
+        return otherContainer.TryStore(item);
     }
 }

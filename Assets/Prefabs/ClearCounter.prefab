@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 1423444381894128519}
   - component: {fileID: 5332275429619723116}
   - component: {fileID: 8134751058012842604}
-  - component: {fileID: 522098160915389314}
+  - component: {fileID: 2414224857578005814}
   - component: {fileID: 616979445599862078}
   m_Layer: 10
   m_Name: ClearCounter
@@ -136,7 +136,7 @@ MonoBehaviour:
   emissionColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   renderers:
   - {fileID: 4491383093305116852}
---- !u!114 &522098160915389314
+--- !u!114 &2414224857578005814
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,10 +145,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3804221014731841957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bca03b3ab5fce7f4fbcfd46784bfa63f, type: 3}
+  m_Script: {fileID: 11500000, guid: f72a58899ae639249bfc0b0306162f17, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SingleSlotContainer
+  m_EditorClassIdentifier: Assembly-CSharp::Container
   anchor: {fileID: 1317936519948049053}
+  storePolicy: {fileID: 0}
 --- !u!114 &616979445599862078
 MonoBehaviour:
   m_ObjectHideFlags: 0

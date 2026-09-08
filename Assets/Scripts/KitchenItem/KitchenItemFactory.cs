@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 
-public static class KitchenItemFactory
+public static class KitchenItemFactory<T> where T : KitchenItem
 {
-    public static KitchenItem CreateFrom(KitchenItemDefinition definition)
+    public static T CreateFrom(KitchenItemDefinition definition)
     {
-        var itemObject = new GameObject("KitchenItem");
+        var itemObject = new GameObject(typeof(T).Name);
         itemObject.SetActive(false);
 
-        var kitchenItem = itemObject.AddComponent<KitchenItem>();
+        var kitchenItem = itemObject.AddComponent<T>();
         kitchenItem.InitializeFrom(definition);
 
         itemObject.SetActive(true);

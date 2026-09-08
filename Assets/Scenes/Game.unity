@@ -1769,7 +1769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1041861185}
   - component: {fileID: 1041861186}
-  - component: {fileID: 1041861187}
+  - component: {fileID: 1041861188}
   m_Layer: 0
   m_Name: Interactor
   m_TagString: Untagged
@@ -1805,7 +1805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TargetInteractor
   targetDetector: {fileID: 397859720}
---- !u!114 &1041861187
+--- !u!114 &1041861188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1814,10 +1814,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1041861184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bca03b3ab5fce7f4fbcfd46784bfa63f, type: 3}
+  m_Script: {fileID: 11500000, guid: f72a58899ae639249bfc0b0306162f17, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SingleSlotContainer
+  m_EditorClassIdentifier: Assembly-CSharp::Container
   anchor: {fileID: 1418100322}
+  storePolicy: {fileID: 11400000, guid: 3f373774c38170849b606eff81e1c007, type: 2}
 --- !u!1001 &1104613547
 PrefabInstance:
   m_ObjectHideFlags: 0

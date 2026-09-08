@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4286716213798025928}
   - component: {fileID: 8970308175027130752}
   - component: {fileID: 8838003549165817856}
-  - component: {fileID: 7832450008881362319}
+  - component: {fileID: 1446357034881487203}
   - component: {fileID: 4152516425235308308}
   m_Layer: 10
   m_Name: PlateCounter
@@ -73,7 +73,7 @@ MonoBehaviour:
   emissionColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   renderers:
   - {fileID: 8290201050457524621}
---- !u!114 &7832450008881362319
+--- !u!114 &1446357034881487203
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -82,10 +82,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2164926011970440576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e6c94b19f0756b4fa38b5982e83fcbe, type: 3}
+  m_Script: {fileID: 11500000, guid: fbded305e2e44c240895f3bb29bb5bd8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MultiSlotContainer
+  m_EditorClassIdentifier: Assembly-CSharp::StackedItemContainer
   anchor: {fileID: 2218324626938019551}
+  storePolicy: {fileID: 0}
 --- !u!114 &4152516425235308308
 MonoBehaviour:
   m_ObjectHideFlags: 0

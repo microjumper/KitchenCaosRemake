@@ -10,7 +10,7 @@ public class TargetSelector : MonoBehaviour
     {
         if (targetDetector != null)
         {
-            targetDetector.OnTargetChange += OnTargetSelection;
+            targetDetector.TargetChanged += OnTargetSelection;
         }
     }
 
@@ -18,7 +18,7 @@ public class TargetSelector : MonoBehaviour
     {
         if (targetDetector != null)
         {
-            targetDetector.OnTargetChange -= OnTargetSelection;
+            targetDetector.TargetChanged -= OnTargetSelection;
         }
     }
 

@@ -3,23 +3,23 @@ using UnityEngine;
 [RequireComponent(typeof(IContainer))]
 public class ClearCounter : MonoBehaviour, IInteractable
 {
-    private IContainer stationContainer;
+    private IContainer counterContainer;
 
     private void Awake()
     {
-        stationContainer = GetComponent<IContainer>();
+        counterContainer = GetComponent<IContainer>();
     }
 
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.IsEmpty)
+        if (otherContainer.HasItem)
         {
-            return CounterTransfer.TryTransfer(stationContainer, otherContainer);
+            return ItemTransfer.TryTransfer(otherContainer, counterContainer);
         }
 
-        if (stationContainer.IsEmpty)
+        if (counterContainer.HasItem)
         {
-            return CounterTransfer.TryTransfer(otherContainer, stationContainer);
+            return ItemTransfer.TryTransfer(counterContainer, otherContainer);
         }
 
         return false;
