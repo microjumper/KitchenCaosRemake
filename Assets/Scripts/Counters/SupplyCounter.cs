@@ -15,15 +15,15 @@ public class SupplyCounter : MonoBehaviour, IInteractable
 
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.HasItem)
+        if (otherContainer.HeldItem == null)
         {
-            return false;
+            animator.SetTrigger(OpenClose);
+
+            var item = KitchenItemFactory.CreateFrom(supply);
+
+            return otherContainer.TryStore(item);
         }
 
-        animator.SetTrigger(OpenClose);
-
-        var item = KitchenItemFactory<Ingredient>.CreateFrom(supply);
-
-        return otherContainer.TryStore(item);
+        return false;
     }
 }

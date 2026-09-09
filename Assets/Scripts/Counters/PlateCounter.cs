@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(IContainer))]
 public class PlateCounter : MonoBehaviour, IInteractable
 {
-    [SerializeField] private KitchenItemDefinition plateDefinition;
+    [SerializeField] private GameObject platePrefab;
     [SerializeField] private int maxPlates = 5;
     [SerializeField] private float spawnInterval = 1.5f;
 
@@ -24,19 +24,19 @@ public class PlateCounter : MonoBehaviour, IInteractable
 
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.HasItem)
+        if (otherContainer.HeldItem == null)
         {
-            return false;
+            var transferred = counterContainer.TryTransferTo(otherContainer);
+
+            if (transferred)
+            {
+                numberOfPlates--;
+            }
+
+            return transferred;
         }
 
-        var transferred = ItemTransfer.TryTransfer(counterContainer, otherContainer);
-
-        if (transferred)
-        {
-            numberOfPlates--;
-        }
-
-        return transferred;
+        return false;
     }
 
     private IEnumerator SpawnPlates()
@@ -45,7 +45,7 @@ public class PlateCounter : MonoBehaviour, IInteractable
         {
             if (numberOfPlates < maxPlates)
             {
-                var plate = KitchenItemFactory<Plate>.CreateFrom(plateDefinition);
+                var plate = KitchenItemFactory.CreateFrom(platePrefab);
 
                 counterContainer.TryStore(plate);
 

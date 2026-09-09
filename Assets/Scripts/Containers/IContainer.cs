@@ -1,7 +1,7 @@
 ﻿public interface IContainer
 {
-    bool HasItem { get; }
-    bool CanStore(KitchenItem item);
+    KitchenItem HeldItem { get; }
+
     bool TryStore(KitchenItem item);
     bool TryRetrieve(out KitchenItem item);
 }

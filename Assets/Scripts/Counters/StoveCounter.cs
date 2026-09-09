@@ -1,32 +1,59 @@
 using UnityEngine;
 
-public class StoveCounter : ProcessingCounter
+[RequireComponent(typeof(IContainer))]
+public class StoveCounter : MonoBehaviour, IInteractable
 {
     [SerializeField] private CookableRecipeRepository repository;
     [SerializeField] private ProgressBar progressBar;
     [SerializeField] private GameObject stoveOnEffects;
 
-    protected override bool IsProcessing => cookingProcess != null && !cookingProcess.IsComplete;
+    private IContainer counterContainer;
 
     private CookingProcess cookingProcess = null;
+    private bool IsProcessing => cookingProcess != null && !cookingProcess.IsComplete;
 
-    protected override bool TryStartProcessing(KitchenItemDefinition startingItemDefinition)
+    protected virtual void Awake()
     {
-        if (!repository.TryGet(startingItemDefinition, out var recipe))
+        counterContainer = GetComponent<IContainer>();
+    }
+
+    private void Update()
+    {
+        if (cookingProcess == null)
         {
+            return;
+        }
+
+        cookingProcess.AdvanceTime(Time.deltaTime);
+    }
+
+    public bool TryInteractWith(IContainer otherContainer)
+    {
+        if (IsProcessing)
+        {
+            Debug.Log($"{GetType().Name} is processing. Cannot transfer items.");
+
             return false;
         }
 
-        StartCookingProcess(recipe);
+        if (otherContainer.HeldItem == null)
+        {
+            return TryTransferProcessedItemTo(otherContainer);
+        }
 
-        EnableVisual();
+        if (counterContainer.HeldItem != null)
+        {
+            Debug.Log("Counter container is not empty. Cannot transfer items.");
 
-        return true;
+            return false;
+        }
+
+        return TryTransferStartingItemFrom(otherContainer);
     }
 
-    protected override bool TryTransferProcessedItemTo(IContainer otherContainer)
+    protected bool TryTransferProcessedItemTo(IContainer otherContainer)
     {
-        var transferred = base.TryTransferProcessedItemTo(otherContainer);
+        var transferred = counterContainer.TryTransferTo(otherContainer);
 
         if (transferred)
         {
@@ -38,14 +65,21 @@ public class StoveCounter : ProcessingCounter
         return transferred;
     }
 
-    private void Update()
+    private bool TryTransferStartingItemFrom(IContainer otherContainer)
     {
-        if (cookingProcess == null)
+        if (repository.TryGet(otherContainer.HeldItem.Definition, out var recipe))
         {
-            return;
+            if (otherContainer.TryTransferTo(counterContainer))
+            {
+                StartCookingProcess(recipe);
+
+                EnableVisual();
+
+                return true;
+            }
         }
 
-        cookingProcess.AdvanceTime(Time.deltaTime);
+        return false;
     }
 
     private void OnItemCooked()
@@ -68,13 +102,13 @@ public class StoveCounter : ProcessingCounter
 
     private void ReplaceWith(KitchenItemDefinition itemDefinition)
     {
-        if (CounterContainer.TryRetrieve(out var item))
+        if (counterContainer.TryRetrieve(out var item))
         {
-            Destroy(item);
+            Destroy(item.gameObject);
 
-            var processed = KitchenItemFactory<KitchenItem>.CreateFrom(itemDefinition);
+            var processed = KitchenItemFactory.CreateFrom(itemDefinition);
 
-            CounterContainer.TryStore(processed);
+            counterContainer.TryStore(processed);
         }
     }
 

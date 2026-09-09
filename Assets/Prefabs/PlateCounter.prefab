@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e37b84fbddcb34f97603051298e88a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlateCounter
-  plateDefinition: {fileID: 11400000, guid: a8379adce89882949a192166ac8fa158, type: 2}
+  platePrefab: {fileID: 6123514025555192089, guid: 7858ee0dbef47874ca2199a5458b68bd, type: 3}
   maxPlates: 5
   spawnInterval: 1.5
 --- !u!1 &7171045971182417167

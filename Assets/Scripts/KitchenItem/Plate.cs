@@ -1,3 +1,5 @@
-﻿public class Plate: KitchenItem
+﻿using UnityEngine;
+
+public class Plate : KitchenItem
 {
 }
