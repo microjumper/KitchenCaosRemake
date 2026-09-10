@@ -12,14 +12,14 @@ public class ClearCounter : MonoBehaviour, IInteractable
 
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.HeldItem == null)
+        if (counterContainer.Item != null && counterContainer.TryTransferTo(otherContainer))
         {
-            return counterContainer.TryTransferTo(otherContainer);
+            return true;
         }
 
-        if (counterContainer.HeldItem == null)
+        if (otherContainer.Item != null && otherContainer.TryTransferTo(counterContainer))
         {
-            return otherContainer.TryTransferTo(counterContainer);
+            return true;
         }
 
         return false;

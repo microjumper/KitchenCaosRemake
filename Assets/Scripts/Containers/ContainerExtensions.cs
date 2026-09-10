@@ -1,73 +1,45 @@
 ﻿using System;
-using UnityEngine;
 
 public static class ContainerExtensions
 {
-    private const string LogHeader = "[ContainerExtensions]";
-
+    /// <summary>
+    /// Attempts to transfer an item from source to destination.
+    /// </summary>
+    /// <returns>True if the item was successfully transferred; false if the source was empty or destination was full.</returns>
+    /// <exception cref="InvalidOperationException">Thrown when rollback fails, preventing silent data loss.</exception>
     public static bool TryTransferTo(this IContainer source, IContainer destination)
     {
-        // Guard against nulls and identical instances.
-        if (source is null || destination is null || ReferenceEquals(source, destination))
+        if (source == null)
         {
-            Debug.LogWarning($"{LogHeader} Invalid transfer attempt: source or destination is null, or both are the same instance.");
+            throw new ArgumentNullException(nameof(source));
+        }
 
+        if (destination == null)
+        {
+            throw new ArgumentNullException(nameof(destination));
+        }
+
+        if (ReferenceEquals(source, destination))
+        {
             return false;
         }
 
-        // Pre-validation.
-        if (source.HeldItem == null)
+        if (!source.TryRetrieve(out var item))
         {
-            Debug.LogWarning($"{LogHeader} Transfer failed: source is empty.");
-
             return false;
         }
 
-        if (destination.HeldItem != null)
+        if (destination.TryStore(item))
         {
-            Debug.LogWarning($"{LogHeader} Transfer failed: destination already has an item.");
-
-            return false;
+            return true;
         }
 
-        // Retrieve the item from the source.
-        if (!source.TryRetrieve(out KitchenItem item) || item == null)
+        if (!source.TryStore(item)) // Rollback attempt
         {
-            Debug.LogWarning($"{LogHeader} Transfer failed: source could not provide an item.");
-
-            return false;
+            throw new InvalidOperationException(
+                $"Failed to store {item.name} back into source after destination store failed."
+            );
         }
-
-        // Attempt to store it in the destination.
-        try
-        {
-            if (destination.TryStore(item))
-            {
-                return true;
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"{LogHeader} Destination threw an exception during store: {ex}");
-        }
-
-        // Destination rejected the item or threw. Attempt to restore the source.
-        try
-        {
-            if (source.TryStore(item))
-            {
-                Debug.LogWarning($"{LogHeader} Transfer failed: destination rejected item '{item.name}'. Source was successfully restored.");
-
-                return false;
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"{LogHeader} CRITICAL: Rollback threw an exception for item '{item.name}': {ex}");
-        }
-
-        // Source could not be restored.
-        Debug.LogError($"{LogHeader} CRITICAL: Rollback failed. Item '{item.name}' may have been lost.");
 
         return false;
     }

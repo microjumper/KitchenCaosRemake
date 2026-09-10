@@ -1045,6 +1045,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3712329999964773628, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712329999964773628, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712329999964773628, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5676891037590106765, guid: 28884093d5f22704c9ed748224bd586a, type: 3}
       propertyPath: m_Name
       value: CuttingStation (1)

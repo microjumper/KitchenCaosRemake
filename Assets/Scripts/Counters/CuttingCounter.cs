@@ -29,12 +29,17 @@ public class CuttingCounter : MonoBehaviour, IInteractable, IInteractableAlterna
             return false;
         }
 
-        if (otherContainer.HeldItem == null)
+        if (otherContainer.Item == null|| otherContainer.Item is IContainer)
         {
             return TryTransferProcessedItemTo(otherContainer);
         }
 
-        if (counterContainer.HeldItem != null)
+        if (counterContainer.Item == null && otherContainer.Item is IContainer)
+        {
+            return false;
+        }
+
+        if (counterContainer.Item != null)
         {
             Debug.Log("Counter container is not empty. Cannot transfer items.");
 
@@ -46,7 +51,7 @@ public class CuttingCounter : MonoBehaviour, IInteractable, IInteractableAlterna
 
     public bool TryInteractAlternateWith(IContainer container)
     {
-        if (counterContainer.HeldItem == null || cuttingProcess == null)
+        if (counterContainer.Item == null || cuttingProcess == null)
         {
             return false;
         }
@@ -88,7 +93,7 @@ public class CuttingCounter : MonoBehaviour, IInteractable, IInteractableAlterna
 
     private bool TryTransferStartingItemFrom(IContainer otherContainer)
     {
-        if (repository.TryGet(otherContainer.HeldItem.Definition, out var recipe))
+        if (repository.TryGet(otherContainer.Item.Definition, out var recipe))
         {
             if (otherContainer.TryTransferTo(counterContainer))
             {

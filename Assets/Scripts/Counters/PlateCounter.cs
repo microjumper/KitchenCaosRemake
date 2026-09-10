@@ -24,7 +24,7 @@ public class PlateCounter : MonoBehaviour, IInteractable
 
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.HeldItem == null)
+        if (otherContainer.Item == null)
         {
             var transferred = counterContainer.TryTransferTo(otherContainer);
 

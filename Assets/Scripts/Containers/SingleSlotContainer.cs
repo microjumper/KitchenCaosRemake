@@ -4,20 +4,20 @@ public class Container : MonoBehaviour, IContainer
 {
     [SerializeField] private Transform anchor;
 
-    public KitchenItem HeldItem { get; private set; } = null;
+    public KitchenItem Item { get; private set; } = null;
 
     public bool TryRetrieve(out KitchenItem item)
     {
-        if (HeldItem == null)
+        if (Item == null)
         {
             item = null;
 
             return false;
         }
 
-        item = HeldItem;
+        item = Item;
 
-        HeldItem = null;
+        Item = null;
 
         return true;
     }
@@ -25,13 +25,18 @@ public class Container : MonoBehaviour, IContainer
     // Try-pattern: atomically check and add, avoiding a TOCTOU race between Check() and Store().
     public bool TryStore(KitchenItem item)
     {
-        if (HeldItem == null)
+        if (Item == null)
         {
-            HeldItem = item;
-            HeldItem.transform.SetParent(anchor);
-            HeldItem.transform.SetPositionAndRotation(anchor.position, HeldItem.transform.rotation);
+            Item = item;
+            Item.transform.SetParent(anchor);
+            Item.transform.SetPositionAndRotation(anchor.position, Item.transform.rotation);
 
             return true;
+        }
+
+        if (Item is IContainer container)
+        {
+            return container.TryStore(item);
         }
 
         return false;

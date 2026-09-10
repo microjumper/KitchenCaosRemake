@@ -36,12 +36,17 @@ public class StoveCounter : MonoBehaviour, IInteractable
             return false;
         }
 
-        if (otherContainer.HeldItem == null)
+        if (otherContainer.Item == null || otherContainer.Item is IContainer)
         {
             return TryTransferProcessedItemTo(otherContainer);
         }
 
-        if (counterContainer.HeldItem != null)
+        if (counterContainer.Item == null && otherContainer.Item is IContainer)
+        {
+            return false;
+        }
+
+        if (counterContainer.Item != null)
         {
             Debug.Log("Counter container is not empty. Cannot transfer items.");
 
@@ -67,7 +72,7 @@ public class StoveCounter : MonoBehaviour, IInteractable
 
     private bool TryTransferStartingItemFrom(IContainer otherContainer)
     {
-        if (repository.TryGet(otherContainer.HeldItem.Definition, out var recipe))
+        if (repository.TryGet(otherContainer.Item.Definition, out var recipe))
         {
             if (otherContainer.TryTransferTo(counterContainer))
             {

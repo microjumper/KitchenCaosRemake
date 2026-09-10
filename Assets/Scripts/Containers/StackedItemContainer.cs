@@ -9,7 +9,7 @@ public class StackedItemContainer : MonoBehaviour, IContainer
 
     private readonly Stack<KitchenItem> itemStack = new();
 
-    public KitchenItem HeldItem => itemStack.Peek();
+    public KitchenItem Item => itemStack.Peek();
 
     public bool TryRetrieve(out KitchenItem item)
     {

@@ -15,7 +15,7 @@ public class SupplyCounter : MonoBehaviour, IInteractable
 
     public bool TryInteractWith(IContainer otherContainer)
     {
-        if (otherContainer.HeldItem == null)
+        if (otherContainer.Item == null)
         {
             animator.SetTrigger(OpenClose);
 
