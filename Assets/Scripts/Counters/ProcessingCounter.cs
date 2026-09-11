@@ -41,7 +41,7 @@ public abstract class ProcessingCounter<TRecipe> : MonoBehaviour, IInteractable
 
         if (transferred)
         {
-            DisableUI();
+            DisableVisual();
             ResetProcess();
         }
 
@@ -56,7 +56,7 @@ public abstract class ProcessingCounter<TRecipe> : MonoBehaviour, IInteractable
         if (!otherContainer.TryTransferTo(counterContainer))
             return false;
 
-        EnableUI();
+        EnableVisual();
         StartProcessFrom(recipe);
 
         return true;
@@ -67,12 +67,12 @@ public abstract class ProcessingCounter<TRecipe> : MonoBehaviour, IInteractable
     protected abstract void ResetProcess();
     protected abstract void StartProcessFrom(TRecipe recipe);
 
-    protected virtual void EnableUI()
+    protected virtual void EnableVisual()
     {
         progressBar.gameObject.SetActive(true);
     }
 
-    protected virtual void DisableUI()
+    protected virtual void DisableVisual()
     {
         progressBar.gameObject.SetActive(false);
     }
