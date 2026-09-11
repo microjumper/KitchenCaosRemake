@@ -1,36 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class Plate : KitchenItem, IContainer
+public class Plate : KitchenItem
 {
-    [SerializeField] private Deliverable deliverable;
+    [SerializeField] private Deliverable platedDeliverable;
 
-    public KitchenItem Item { get; private set; }
+    public IReadOnlyCollection<KitchenItemDefinition> PlatedItems => platedDeliverable.ItemSet;
 
-    public bool TryRetrieve(out KitchenItem item)
+    public bool TryAdd(KitchenItem item)
     {
-        if (Item == null)
-        {
-            item = null;
+        var added = platedDeliverable.TryAdd(item.Definition);
 
-            return false;
-        }
-
-        item = Item;
-
-        Item = null;
-
-        return true;
-    }
-
-    public bool TryStore(KitchenItem item)
-    {
-        var delivered = deliverable.TryAdd(item.Definition);
-
-        if (delivered)
+        if (added)
         {
             Destroy(item.gameObject);
         }
 
-        return delivered;
+        return added;
     }
 }

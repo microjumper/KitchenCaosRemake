@@ -34,9 +34,9 @@ public class Container : MonoBehaviour, IContainer
             return true;
         }
 
-        if (Item is IContainer container)
+        if (Item is Plate plate)
         {
-            return container.TryStore(item);
+            return plate.TryAdd(item);
         }
 
         return false;

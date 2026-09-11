@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShaderAnimator
   targetMaterial: {fileID: 2100000, guid: 0067057d42b89e047aeea76db3fc49f5, type: 2}
-  speed: 1
 --- !u!33 &4588284356683408136
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -148,6 +147,7 @@ GameObject:
   - component: {fileID: 1973745362100467848}
   - component: {fileID: 7293067282398765724}
   - component: {fileID: 2922587246233990908}
+  - component: {fileID: -8477717087605971135}
   m_Layer: 10
   m_Name: DeliveryCounter
   m_TagString: Counter
@@ -221,6 +221,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Container
   anchor: {fileID: 7067419211480266671}
+--- !u!114 &-8477717087605971135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6710319705656607078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f595dd13b648c0f43acb3ccc447fc6f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DeliveryCounter
 --- !u!1001 &5997194369534887953
 PrefabInstance:
   m_ObjectHideFlags: 0

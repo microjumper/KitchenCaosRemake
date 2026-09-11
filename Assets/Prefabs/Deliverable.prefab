@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae306d354745c6488d831ca7550a120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Deliverable
-  itemToVisualPairs:
+  itemToVisual:
   - key: {fileID: 11400000, guid: 962d6d34f421bff4b9128f2f0804af7a, type: 2}
     value: {fileID: 4854236245201699959}
   - key: {fileID: 11400000, guid: 3580f4af06fdfcd4e8136b83f6237a5c, type: 2}

@@ -19,10 +19,10 @@ public abstract class ProcessingCounter<TRecipe> : MonoBehaviour, IInteractable
             return false;
         }
 
-        if (otherContainer.Item == null || otherContainer.Item is IContainer)
+        if (otherContainer.Item == null || otherContainer.Item is Plate)
             return TryTransferProcessedItemTo(otherContainer);
 
-        if (counterContainer.Item == null && otherContainer.Item is IContainer)
+        if (counterContainer.Item == null && otherContainer.Item is Plate)
             return false;
 
         if (counterContainer.Item != null)

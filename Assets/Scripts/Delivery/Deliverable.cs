@@ -3,14 +3,11 @@ using UnityEngine;
 
 public class Deliverable : MonoBehaviour
 {
-    [SerializeField] private List<SerializableKeyValuePair<KitchenItemDefinition, GameObject>> itemToVisualPairs;
+    [SerializeField] private Dictionary<KitchenItemDefinition, GameObject> itemToVisual;
 
-    private Dictionary<KitchenItemDefinition, GameObject> itemToVisual;
+    public IReadOnlyCollection<KitchenItemDefinition> ItemSet => itemSet;
 
-    private void Awake()
-    {
-        itemToVisual = itemToVisualPairs.ToDictionary();
-    }
+    private readonly HashSet<KitchenItemDefinition> itemSet = new();
 
     public bool TryAdd(KitchenItemDefinition item)
     {
@@ -19,6 +16,8 @@ public class Deliverable : MonoBehaviour
             if (!visual.activeInHierarchy)
             {
                 visual.SetActive(true);
+
+                itemSet.Add(item);
 
                 return true;
             }

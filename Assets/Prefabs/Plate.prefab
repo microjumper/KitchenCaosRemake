@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8e4c9d94812bf469471ddf665c9da7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Plate
-  deliverable: {fileID: 1062208188312019794}
+  platedDeliverable: {fileID: 1062208188312019794}
 --- !u!1001 &1872508905043969040
 PrefabInstance:
   m_ObjectHideFlags: 0
