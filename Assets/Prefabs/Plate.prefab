@@ -127,6 +127,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4613589856567898853, guid: d7117d44d7af7534db26e6280f0ca453, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854236243451048123, guid: d7117d44d7af7534db26e6280f0ca453, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854236243608680303, guid: d7117d44d7af7534db26e6280f0ca453, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854236244923124921, guid: d7117d44d7af7534db26e6280f0ca453, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854236244935416565, guid: d7117d44d7af7534db26e6280f0ca453, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4854236245201699959, guid: d7117d44d7af7534db26e6280f0ca453, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4938064482215507521, guid: d7117d44d7af7534db26e6280f0ca453, type: 3}
       propertyPath: m_Name
       value: Deliverable

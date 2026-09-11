@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Container
   anchor: {fileID: 8955920621061623965}
-  storePolicy: {fileID: 0}
 --- !u!114 &8968976604477460897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,9 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074293315f0221a458bd5b5b18600bd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingStation
+  progressBar: {fileID: 2541916124903046756}
   repository: {fileID: 11400000, guid: 1370e630a9d8f0041bfe281d59eb0741, type: 2}
   animator: {fileID: 4520740877305897360}
-  progressBar: {fileID: 2541916124903046756}
 --- !u!1001 &1869540401533136435
 PrefabInstance:
   m_ObjectHideFlags: 0

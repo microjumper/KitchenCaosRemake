@@ -1,53 +1,16 @@
 using UnityEngine;
 
-[RequireComponent(typeof(IContainer))]
-public class CuttingCounter : MonoBehaviour, IInteractable, IInteractableAlternate
+public class CuttingCounter : ProcessingCounter<SliceableItemDefinition>, IInteractable, IInteractableAlternate
 {
     private static readonly int Cut = Animator.StringToHash("Cut");
 
     [SerializeField] private SlicebleRecipeRepository repository;
     [SerializeField] private Animator animator;
-    [SerializeField] private ProgressBar progressBar;
-
-    private IContainer counterContainer;
 
     private CuttingProcess cuttingProcess = null;
-    private bool IsProcessing => cuttingProcess != null && cuttingProcess.IsInProgress;
 
-
-    private void Awake()
-    {
-        counterContainer = GetComponent<IContainer>();
-    }
-
-    public bool TryInteractWith(IContainer otherContainer)
-    {
-        if (IsProcessing)
-        {
-            Debug.Log($"{GetType().Name} is processing. Cannot transfer items.");
-
-            return false;
-        }
-
-        if (otherContainer.Item == null|| otherContainer.Item is IContainer)
-        {
-            return TryTransferProcessedItemTo(otherContainer);
-        }
-
-        if (counterContainer.Item == null && otherContainer.Item is IContainer)
-        {
-            return false;
-        }
-
-        if (counterContainer.Item != null)
-        {
-            Debug.Log("Counter container is not empty. Cannot transfer items.");
-
-            return false;
-        }
-
-        return TryTransferStartingItemFrom(otherContainer);
-    }
+    protected override bool IsTransferBlockedDuringProcessing => cuttingProcess != null && cuttingProcess.IsInProgress;
+    protected override IRepository<KitchenItemDefinition, SliceableItemDefinition> Repository => repository;
 
     public bool TryInteractAlternateWith(IContainer container)
     {
@@ -62,63 +25,26 @@ public class CuttingCounter : MonoBehaviour, IInteractable, IInteractableAlterna
             animator.SetTrigger(Cut);
         }
 
-        if (cuttingProcess.IsComplete && counterContainer.TryRetrieve(out var whole))
+        if (cuttingProcess.IsComplete)
         {
-            Destroy(whole.gameObject);
-
-            var sliced = KitchenItemFactory.CreateFrom(cuttingProcess.Output);
-
-            if (counterContainer.TryStore(sliced))
-            {
-                return true;
-            }
-
-            Destroy(sliced.gameObject);
+            return TryReplaceItemWith(cuttingProcess.Output);
         }
 
         return false;
     }
 
-    private bool TryTransferProcessedItemTo(IContainer otherContainer)
+    protected override void StartProcessFrom(SliceableItemDefinition recipe)
     {
-        var transferred = counterContainer.TryTransferTo(otherContainer);
-
-        if (transferred)
-        {
-            ResetCuttingProcess();
-        }
-
-        return transferred;
+        cuttingProcess = new CuttingProcess(recipe);
+        cuttingProcess.CutProgressChanged += HandleProgressChanged;
     }
 
-    private bool TryTransferStartingItemFrom(IContainer otherContainer)
-    {
-        if (repository.TryGet(otherContainer.Item.Definition, out var recipe))
-        {
-            if (otherContainer.TryTransferTo(counterContainer))
-            {
-                cuttingProcess = new CuttingProcess(recipe);
-                cuttingProcess.CutProgressChanged += HandleCutProgressChanged;
-
-                progressBar.gameObject.SetActive(true);
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void ResetCuttingProcess()
+    protected override void ResetProcess()
     {
         if (cuttingProcess != null)
         {
-            cuttingProcess.CutProgressChanged -= HandleCutProgressChanged;
+            cuttingProcess.CutProgressChanged -= HandleProgressChanged;
             cuttingProcess = null;
         }
-
-        progressBar.gameObject.SetActive(false);
     }
-
-    private void HandleCutProgressChanged(float progress) => progressBar.SetProgress(progress);
 }
